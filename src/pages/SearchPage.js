@@ -9,8 +9,15 @@ import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import AppsIcon from "@material-ui/icons/Apps";
 import { Avatar } from "@material-ui/core";
 import "./SearchPage.css";
+import { selectTextstring } from "../features/textSlice";
+import { useSelector } from "react-redux";
+import useGoogleSearch from "../useGoogleSearch";
 
 const SearchPage = () => {
+  const textString = useSelector(selectTextstring);
+
+  const { data } = useGoogleSearch(textString);
+  console.log(data);
   return (
     <div className="searchPage">
       <div className="searchPage__header">
@@ -65,6 +72,14 @@ const SearchPage = () => {
           <Avatar className="headerRight__avatar" />
         </div>
       </div>
+      {textString && (
+        <div className="searchPage__results">
+          <p className="searchPage__resultCount">
+            Cerca de {data?.searchInformation.formattedTotalResults} resultados
+            ({data?.searchInformation.formattedSearchTime} segundos)
+          </p>
+        </div>
+      )}
     </div>
   );
 };

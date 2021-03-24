@@ -4,13 +4,19 @@ import MicIcon from "@material-ui/icons/Mic";
 import { GoogleInput } from "./GoogleInput";
 import { GoogleButton } from "./GoogleButton";
 import "./Search.css";
+import { setTextstring } from "../features/textSlice";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Search = ({ hideButtons = false }) => {
   const [input, setInput] = useState("");
-
+  const history = useHistory();
+  // Capturamos lo escrito por el usuario en el input, lo despachamos y cambiamos a la página Search
+  const dispatch = useDispatch();
   const search = (e) => {
     e.preventDefault();
-    
+    dispatch(setTextstring(input));
+    history.push("/search");
   };
 
   return (
