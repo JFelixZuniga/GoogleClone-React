@@ -12,6 +12,7 @@ import "./SearchPage.css";
 import { selectTextstring } from "../features/textSlice";
 import { useSelector } from "react-redux";
 import useGoogleSearch from "../useGoogleSearch";
+import Result from "../components/Result";
 
 const SearchPage = () => {
   const textString = useSelector(selectTextstring);
@@ -78,6 +79,9 @@ const SearchPage = () => {
             Cerca de {data?.searchInformation.formattedTotalResults} resultados
             ({data?.searchInformation.formattedSearchTime} segundos)
           </p>
+          {data?.items.map((item) => (
+            <Result key={item.cacheId} data={item} />
+          ))}
         </div>
       )}
     </div>
